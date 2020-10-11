@@ -6,6 +6,8 @@ import PeopleAltRoundedIcon from "@material-ui/icons/PeopleAltRounded";
 import SearchRoundedIcon from "@material-ui/icons/SearchRounded";
 import HelpRoundedIcon from "@material-ui/icons/HelpRounded";
 import SendRoundedIcon from "@material-ui/icons/SendRounded";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { auth } from "../firebase";
 
 export const ChatHeader = () => {
   return (
@@ -30,6 +32,7 @@ export const ChatHeader = () => {
 
         <SendRoundedIcon />
         <HelpRoundedIcon />
+        <ExitToAppIcon  onClick={ () => auth.signOut()}/>
       </div>
       
     </div>

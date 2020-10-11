@@ -14,6 +14,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    //listener
     auth.onAuthStateChanged((authUser) => {
       if (authUser){
         console.table(authUser)

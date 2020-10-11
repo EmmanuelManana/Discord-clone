@@ -12,6 +12,7 @@ import HeadsetIcon from "@material-ui/icons/Headset";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { selectUser } from "../features/userSlice";
 import { useSelector } from "react-redux";
+import { auth } from "../firebase";
 
 const Sidebar = () => {
   //pull from the redux layer.
@@ -66,7 +67,7 @@ const Sidebar = () => {
         />
         <div className="sidebar__profileInfo">
           <h3>{user.displayName}</h3>
-          <p>{user.uid.substring(0, 6)}</p>
+          <p>#{user.uid.substring(0, 6)}</p>
         </div>
 
         <div className="sidebar__profileIcons">
