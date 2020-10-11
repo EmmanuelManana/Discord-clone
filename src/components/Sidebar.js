@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AddIcon from "@material-ui/icons/Add";
 import "../styles/Sidebar.css";
@@ -12,16 +12,45 @@ import HeadsetIcon from "@material-ui/icons/Headset";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { selectUser } from "../features/userSlice";
 import { useSelector } from "react-redux";
-import { auth } from "../firebase";
+import db,  { auth } from "../firebase";
+import ScrollToBottom from "react-scroll-to-bottom"
 
 const Sidebar = () => {
   //pull from the redux layer.
   const user = useSelector(selectUser);
+  const [channels, setChannels] = useState([]);
+
+  // listen to the change in the collection.
+  useEffect(() => {
+    
+    db.collection("channels").onSnapshot(snapshot => {
+      // .docs =>  (array of all the changes in the snapshot)
+      let docsArray = snapshot.docs;
+      setChannels(docsArray.map(doc => ({
+        id: doc.id,
+        channel: doc.data()
+      })))
+    })
+
+  }, [])
+
+  //make a change in the collection
+  const addChannel = () => {
+    let promptChannel = prompt("Type in channel Name");
+
+    if (promptChannel){
+      db.collection("channels").add({
+        channelName: promptChannel 
+      })
+    }
+  }
+
+  console.log(channels)
 
   return (
     <div className="sidebar">
       <div className="sidebar__top">
-        <h3> Emmanuel's Room</h3>
+        <h3> Emmanuel's Rooms</h3>
         <ExpandMoreIcon />
       </div>
 
@@ -32,14 +61,22 @@ const Sidebar = () => {
             <h4>Text Channels</h4>
           </div>
 
-          <AddIcon className="sidebar__addChannel" />
+          <AddIcon
+          onClick={addChannel} 
+          className="sidebar__addChannel" />
         </div>
 
         <div className="sidebar__channelsList">
-          <SidebarChannel />
-          <SidebarChannel />
-          <SidebarChannel />
-          <SidebarChannel />
+          {
+            channels.map(({id, channel}) => (
+              // SidebarChannel onClick to populate messages 
+              <SidebarChannel 
+              key={id}
+              id={id}
+              channelName = {channel.channelName}
+              />
+            ))
+          }
         </div>
       </div>
 

@@ -6,17 +6,16 @@ import PeopleAltRoundedIcon from "@material-ui/icons/PeopleAltRounded";
 import SearchRoundedIcon from "@material-ui/icons/SearchRounded";
 import HelpRoundedIcon from "@material-ui/icons/HelpRounded";
 import SendRoundedIcon from "@material-ui/icons/SendRounded";
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { auth } from "../firebase";
 
-export const ChatHeader = () => {
+export const ChatHeader = ({channelName}) => {
   return (
     <div className="chatHeader">
-
       <div className="chatHeader__left">
         <h3>
           <span className="chatHeader__hash">#</span>
-          Test channel name
+          {channelName}
         </h3>
       </div>
 
@@ -32,9 +31,8 @@ export const ChatHeader = () => {
 
         <SendRoundedIcon />
         <HelpRoundedIcon />
-        <ExitToAppIcon  onClick={ () => auth.signOut()}/>
+        <ExitToAppIcon onClick={() => auth.signOut()} />
       </div>
-      
     </div>
   );
 };

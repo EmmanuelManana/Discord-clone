@@ -10,16 +10,16 @@ export const appSlice = createSlice({
 
   reducers: {
     // reducer functions
-    setChannelID: (state, action) => {
-      state.app = action.payload;
+    setChannelInfo: (state, action) => {
+      //payload
+      state.channelId = action.payload.channelId;
+      state.channelName = action.payload.channelName;
     },
-    setChannelName: {
-
-    }
+    
   },
 });
 
-export const { setChannelID, setChannelName } = appSlice.actions;
+export const {setChannelInfo} = appSlice.actions;
 
 
 // The function below is called a selector and allows us to select a value from

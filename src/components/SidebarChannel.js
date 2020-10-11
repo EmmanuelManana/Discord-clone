@@ -1,12 +1,29 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { setChannelInfo } from "../features/appSlice";
 import "../styles/SidebarChannel.css";
 
-const SidebarChannel = ({ id, channel }) => {
+//pass firebase  ID and collection name.
+const SidebarChannel = ({ id, channelName }) => {
+  const dispatch = useDispatch();
+
   return (
-    <div className="sidebarChannel">
+    <div
+      className="sidebarChannel"
+
+      onClick={() =>
+        // dispatch to App to ne used anywhere.
+        dispatch(
+          setChannelInfo({
+            channelId: id,
+            channelName: channelName,
+          })
+        )
+      }
+    >
       <h4>
         <span className="sidebarChannel__hash">#</span>
-        YouTube
+        {channelName}
       </h4>
     </div>
   );

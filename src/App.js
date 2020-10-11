@@ -14,26 +14,29 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+
     //listener
     auth.onAuthStateChanged((authUser) => {
+
       if (authUser){
         console.table(authUser)
         //user is logged
 
-        // push into redux-store
-        // dispatch an action into user slice and pass the payload,
-        // pass object of any type
+        // push payload into redux-store
         dispatch(login({
           uid: authUser.uid,
           photo: authUser.photoURL,
           email: authUser.email,
           displayName: authUser.displayName,
         }))
+
       }else{
+        
         //user is logged out
         dispatch(logout())
       }
     });
+
   }, [dispatch]);
 
   return (
