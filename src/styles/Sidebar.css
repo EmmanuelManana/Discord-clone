@@ -23,6 +23,10 @@
   overflow: auto;
 }
 
+.sidebar__channels::-webkit-scrollbar{
+  display: none;
+}
+
 .sidebar__addChannel {
   cursor: pointer;
 }
